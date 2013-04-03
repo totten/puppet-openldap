@@ -294,13 +294,14 @@ nss_initgroups_ignoreusers root,ldap,named,avahi,haldaemon,dbus,radvd,tomcat,rad
 # at present and does not support password policy control
 #pam_sasl_mech DIGEST-MD5
 
-<% if ssl == 'true' %>
+<% if ssl == true %>
 uri <% servers.each do |server| %> ldaps://<%= server %> <% end %>
 ssl yes
+tls_cacertfile <%= ssl_cert %>
 <% else %>
 uri <% servers.each do |server| %> ldap://<%= server %> <% end %>
 ssl no
 <% end %>
 
-tls_cacertdir /etc/openldap/cacerts
+# tls_cacertdir /etc/openldap/cacerts
 pam_password md5

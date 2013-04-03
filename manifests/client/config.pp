@@ -29,6 +29,7 @@ define ldap::client::config (
   $ensure  = 'present',
   $base_dn = undef,
   $ssl     = undef,
+  $ssl_cert = undef,
   $servers = undef,
 ) {
   File {
