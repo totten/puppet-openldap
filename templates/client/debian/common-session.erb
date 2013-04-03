@@ -1,3 +1,4 @@
+session required pam_mkhomedir.so
 <% if ensure_real == 'present' %>
 session     sufficient      pam_ldap.so
 <% end %>
