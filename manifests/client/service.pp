@@ -21,9 +21,17 @@ class ldap::client::service(
   # state
 
   service { 'nscd':
-    ensure     => 'running',
-    enable     => true,
+    ensure     => 'stopped',
+    enable     => false,
     hasrestart => true,
     hasstatus  => true,
+  }
+
+  cron { 'nss-updatedb':
+    ensure => present,
+    command => '/usr/sbin/nss_updatedb ldap',
+    user => root,
+    hour => '*',
+    minute => '*/10'
   }
 }

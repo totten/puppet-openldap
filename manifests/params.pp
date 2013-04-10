@@ -51,13 +51,13 @@ class ldap::params {
         precise: {
           $openldap_packages = ['slapd', 'ldap-utils', 'libperl5.14']
           $openldap_client_packages = [
-            'libnss-ldap', 'nscd', 'libpam-ldap', 'ldap-utils'
+            'libnss-ldap', 'nscd', 'libpam-ldap', 'ldap-utils', 'nss-updatedb'
           ]
         }
         default: {
           $openldap_packages = ['slapd', 'ldap-utils', 'libperl5.10']
           $openldap_client_packages = [
-            'libnss-ldap', 'nscd', 'libpam-ldap', 'ldap-utils'
+            'libnss-ldap', 'nscd', 'libpam-ldap', 'ldap-utils', 'nss-updatedb'
           ]
         }
       }
