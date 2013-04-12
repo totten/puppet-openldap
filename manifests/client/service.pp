@@ -27,6 +27,17 @@ class ldap::client::service(
     hasstatus  => true,
   }
 
+  # Bootstrap ldap user/group cache
+  exec { '/usr/sbin/nss_updatedb ldap':
+    creates => '/var/lib/misc/passwd.db',
+    cwd => '/var/lib/misc',
+    user => root,
+    group => root,
+    require => [ Class['ldap::client::base'], File['/etc/libnss-ldap.conf'], Package['nss-updatedb'] ]
+    ## FIXME: Debian/Ubuntu
+  }
+
+  # Maintain ldap user/group cache
   cron { 'nss-updatedb':
     ensure => present,
     command => '/usr/sbin/nss_updatedb ldap',
