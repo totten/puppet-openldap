@@ -1,5 +1,14 @@
-host <% servers.each do |server| %><%= server %><% end %>
+#host <% servers.each do |server| %><%= server %><% end %>
 base <%= base_dn %>
+
+<% if ssl == true %>
+uri <% servers.each do |server| %> ldaps://<%= server %> <% end %>
+ssl yes
+tls_cacertfile <%= ssl_cert %>
+<% else %>
+uri <% servers.each do |server| %> ldap://<%= server %> <% end %>
+ssl no
+<% end %>
 
 ldap_version 3
 
