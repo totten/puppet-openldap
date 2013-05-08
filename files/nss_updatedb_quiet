@@ -1,0 +1,19 @@
+#!/usr/bin/perl -w
+use strict;
+my $cmd = '/usr/sbin/nss_updatedb ldap';
+my $status = 0;
+my $pipe;
+open($pipe,"$cmd|") || die "Failed to run $cmd";
+
+expectline($pipe, '^passwd\.\.\. done\.$');
+expectline($pipe, '^group\.\.\. done\.$');
+
+close($pipe);
+exit($status);
+
+sub expectline {
+  my ($fh, $pattern) = @_;
+  my $line = <$fh>;
+  chomp $line;
+  if ($line !~ /$pattern/) {print "Error: $line\n"; $status = 1;}
+}
